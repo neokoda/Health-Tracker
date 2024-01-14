@@ -41,7 +41,7 @@ export default function BMICalculator() {
     <div>
       <Header></Header>
       <Background>
-        <form className="w-4/12 bg-white rounded-xl p-10 flex flex-col items-center" onSubmit={handleSubmit}>
+        <form className="bg-white rounded-xl p-10 flex flex-col items-center max-w-xs sm:max-w-none sm:w-3/4 md:max-w-none md:w-1/2 lg:max-w-none lg:w-1/3" onSubmit={handleSubmit}>
           <h1 className="text-center text-3xl font-bold">BMI Calculator</h1>
           <input required className="overflow-hidden border-gray-400 border p-3 rounded-md mt-8 mb-1 w-11/12 transition transform hover:border-black hover:border-2 duration-300" name="height" type="number" value={formData.height} onChange={handleChange} placeholder="Height (cm)"/>
           <input required className="overflow-hidden border-gray-400 border p-3 rounded-md my-1 w-11/12 transition transform hover:border-black hover:border-2 duration-300" name="weight" type="number" value={formData.weight} onChange={handleChange} placeholder="Weight (kg)"/>
