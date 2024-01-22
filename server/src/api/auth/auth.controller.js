@@ -2,14 +2,10 @@ const express = require("express");
 const authService = require("./auth.service");
 const authValidator = require("../../validators/authValidator");
 const validatorCatcher = require("../../middlewares/validatorCatcher");
+const authenticateToken = require("../../middlewares/authenticateToken");
 const utils = require("../../utils");
 
 const router = express.Router();
-
-router.get("/", async (req, res) => {
-  const template = "Masih Template";
-  res.send(template);
-});
 
 router.post(
     "/register",
@@ -77,4 +73,30 @@ router.post(
   }
 });
 
-  module.exports = router;
+router.get(
+  "/login",
+  authenticateToken,
+  async (req, res) => {
+    try {
+        return utils.apiResponse(200, req, res, {
+          status: true,
+          message: "received user information",
+          body: req.user,
+        })
+      } catch (err) {
+        if (err.isCustomError) {
+          return utils.apiResponse(err.statusCode, req, res, {
+            status: false,
+            message: err.message,
+          });
+        } else {
+          return utils.apiResponse(500, req, res, {
+            status: false,
+            message: err.message ? err.message : "Something went wrong.",
+          });
+        }
+    }
+  }
+);
+
+module.exports = router;

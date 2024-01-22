@@ -22,6 +22,7 @@ export default function Login() {
   };
   
   const handleSubmit = async (e) => {
+    setErrorMessage('');
     e.preventDefault();
 
     try {

@@ -24,6 +24,7 @@ export default function Login() {
 
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', formData);
+      localStorage.setItem('accessToken', response.data.body.body.accessToken);
       router.push('../../.');
     } catch (error) {
       setErrorMessage(error.response.data.body.message);
