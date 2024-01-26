@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Header from '../../components/Header/header.js';
 import Background from '../../components/Background/background.js';
 import axios from 'axios';
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken') !== null) {
+      router.push('../.');
+    }
+  })
 
   const [formData, setFormData] = useState({
     email: '',

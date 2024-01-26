@@ -16,3 +16,13 @@ model User {
   fullname String
   password String
 }
+
+model Food {
+  id Int @id @unique @default(autoincrement())
+  food_name String @unique
+  amount Float
+  calories Float
+  carbohydrates Float
+  proteins Float
+  fats Float
+}

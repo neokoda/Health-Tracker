@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 
 const authController = require("./api/auth/auth.controller");
+const nutritionTrackerController = require("./api/nutritionTracker/nutritionTracker.controller");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(`/api/auth`, authController);
+app.use(`/api/nutritionTracker`, nutritionTrackerController);
 app.use(express.static("."));
 
 module.exports = app;

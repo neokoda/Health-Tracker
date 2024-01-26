@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Header from '../../components/Header/header.js';
 import Link from 'next/link';
@@ -7,6 +7,12 @@ import axios from 'axios';
 
 export default function Login() {
   const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken') !== null) {
+      router.push('../.');
+    }
+  })
 
   const [formData, setFormData] = useState({
     email: '',
