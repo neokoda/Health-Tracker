@@ -8,13 +8,23 @@ const createNewFoodItem = async (foodData) => {
 };
 
 const findFoodByName = async (foodName) => {
-const foodItem = await prisma.food.findFirst({
-    where: {
-        food_name : foodName
-    },
+    const foodItem = await prisma.food.findFirst({
+        where: {
+            food_name : foodName
+        },
 });
     return foodItem;
 };
 
-module.exports = { createNewFoodItem, findFoodByName }
+const findFoodLogsByIdAndDate = async (userId, date) => {
+    const foodLogs = await prisma.nutritionTracker.findMany({
+        where: {
+            user_id : userId,
+            consumed_at : date
+        }
+    })
+    return foodLogs
+}
+
+module.exports = { createNewFoodItem, findFoodByName, findFoodLogsByIdAndDate }
   

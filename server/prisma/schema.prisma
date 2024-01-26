@@ -11,18 +11,31 @@ datasource db {
 }
 
 model User {
-  id Int @id @unique @default(autoincrement())
-  email String @unique
-  fullname String
-  password String
+  id               Int                @id @unique @default(autoincrement())
+  email            String             @unique
+  fullname         String
+  password         String
+  NutritionTracker NutritionTracker[]
 }
 
 model Food {
-  id Int @id @unique @default(autoincrement())
-  food_name String @unique
-  amount Float
-  calories Float
-  carbohydrates Float
-  proteins Float
-  fats Float
+  id               Int                @id @unique @default(autoincrement())
+  food_name        String             @unique
+  amount           Float
+  calories         Float
+  carbohydrates    Float
+  proteins         Float
+  fats             Float
+  NutritionTracker NutritionTracker[]
+}
+
+model NutritionTracker {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  user_id     Int
+  consumed_at DateTime
+  food_id     Int
+  amount      Float
+  food        Food     @relation(fields: [food_id], references: [id])
+  user        User     @relation(fields: [user_id], references: [id])
 }

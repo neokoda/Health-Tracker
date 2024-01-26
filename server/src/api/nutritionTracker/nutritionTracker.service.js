@@ -21,4 +21,23 @@ const addFoodItem = async (foodData) => {
     }
 };
 
-module.exports = { addFoodItem };
+const getFoodLog = async (userAndDate) => {
+    try {
+        const userId = parseInt(userAndDate.userId, 10);
+        date = new Date(userAndDate.date);
+        const dateISO = date.toISOString();
+
+        const foodLog = await nutritionTrackerRepository.findFoodLogsByIdAndDate(userId, dateISO);
+        if (!foodLog) {
+            throw utils.customError("404", "No log was found");
+        }
+        return foodLog;
+    } catch (err) {
+        if (err.isCustomError) {
+            throw err;
+        }
+        throw new Error(err);
+    }
+};
+
+module.exports = { addFoodItem, getFoodLog };

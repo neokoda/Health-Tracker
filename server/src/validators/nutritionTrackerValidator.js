@@ -30,4 +30,13 @@ const addFoodItem = [
       .custom(isNonNegative).withMessage('Fat amount must be non-negative'),
   ];
 
-module.exports = { addFoodItem };
+const getFoodLog = [
+  check("userId")
+    .notEmpty().withMessage("User id is required.")
+    .isNumeric().withMessage("User id must be numeric.")
+    .custom(isNonNegative).withMessage('Calorie amouont must be non-negative'),
+  check("date")
+    .notEmpty().withMessage("Date is required.")
+];
+
+module.exports = { addFoodItem, getFoodLog };
