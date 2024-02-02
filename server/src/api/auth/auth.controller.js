@@ -56,7 +56,7 @@ router.post(
     return utils.apiResponse(200, req, res, {
       status: true,
       message: "successfully logged in",
-      body: { accessToken : accessToken },
+      body: { accessToken : accessToken},
     });
     } catch (err) {
     if (err.isCustomError) {

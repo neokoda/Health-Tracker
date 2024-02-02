@@ -33,14 +33,14 @@ export default function Header() {
   };
 
   return (
-    <header className="flex flex-row justify-between z-10 fixed top-0 w-full bg-white shadow-xl px-12 pt-3 pb-4">
+    <header className="flex flex-row justify-between z-10 fixed top-0 w-full bg-white shadow-xl px-6 sm:px-12 pt-3 pb-4">
       <Link href="../../.">
         <Logo></Logo>
       </Link> 
       <div className="flex flex-row bg-green-300 rounded-3xl p-1 transition hover:brightness-[0.95] duration-300">
-        <Link href={typeof localStorage !== 'undefined' && localStorage.getItem('accessToken') ? '../../profile' : '../../auth/login'} className="flex flex-row mt-1 font-bold">
-          <i className="fa-user fa-solid px-2 pt-1 rounded-xl"></i>
-          <div>{user}</div>
+        <Link href={typeof localStorage !== 'undefined' && localStorage.getItem('accessToken') ? '../../profile' : '../../auth/login'} className="flex flex-row font-bold">
+          <i className="fa-user fa-solid px-2 pt-2 rounded-xl"></i>
+          <div className="text-sm pt-[5px] sm:text-lg sm:pt-[1.5px]">{user}</div>
         </Link>
           <button onClick={handleLogout} className="bg-white ml-2 px-2 py-1 rounded-3xl transition hover:brightness-[0.95] duration-300">
             <i className="fa-door-open fa-solid"></i>

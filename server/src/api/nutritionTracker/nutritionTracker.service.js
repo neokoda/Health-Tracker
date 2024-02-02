@@ -40,4 +40,57 @@ const getFoodLog = async (userAndDate) => {
     }
 };
 
-module.exports = { addFoodItem, getFoodLog };
+const getAllFood = async () => {
+    try {
+        const allFood = await nutritionTrackerRepository.findAllFood();
+
+        return allFood;
+    } catch (err) {
+        if (err.isCustomError) {
+            throw err;
+        }
+        throw new Error(err);
+    }
+};
+
+const deleteFoodLog = async (foodLogId) => {
+    try {
+        const deletedFoodLog = await nutritionTrackerRepository.deleteFoodLogById(foodLogId);
+        if (!deletedFoodLog) {
+            throw utils.customError("404", "Food log not found");
+        }
+    } catch (err) {
+        if (err.isCustomError) {
+            throw err;
+        }
+        throw new Error(err);
+    }
+}
+
+const addFoodLog = async (logFormData) => {
+    try {
+        const foodName = await nutritionTrackerRepository.findFoodByName(logFormData.food_name);
+        if (!foodName) {
+            throw utils.customError("404", "Food item not found");
+        }
+        console.log(logFormData);
+        const foodLogData = {
+            user_id: logFormData.userId,
+            consumed_at: `${logFormData.date}T00:00:00Z`,
+            food_id: foodName.id,
+            amount: (logFormData.amountType === "servings" ? logFormData.amount : logFormData.amount / foodName.amount),
+        }
+        const newFoodLog = await nutritionTrackerRepository.createNewFoodLog(foodLogData);
+        if (!newFoodLog) {
+            throw utils.customError("400", "Failed to create new food log");
+        }
+        return newFoodLog;
+    } catch (err) {
+        if (err.isCustomError) {
+            throw err;
+        }
+        throw new Error(err);
+    }
+};
+
+module.exports = { addFoodItem, getFoodLog, getAllFood, deleteFoodLog, addFoodLog };

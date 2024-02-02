@@ -1,9 +1,19 @@
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Header from '../components/Header/header.js';
 import Background from '../components/Background/background.js';
 import IconButton from '../components/IconButton/iconbutton.js';
 import Link from 'next/link';
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem('accessToken') === null) {
+      router.push('../auth/login');
+    }
+  })
+
   return ( 
     <div>
       <Header/>

@@ -31,12 +31,25 @@ const addFoodItem = [
   ];
 
 const getFoodLog = [
-  check("userId")
-    .notEmpty().withMessage("User id is required.")
-    .isNumeric().withMessage("User id must be numeric.")
-    .custom(isNonNegative).withMessage('Calorie amouont must be non-negative'),
   check("date")
     .notEmpty().withMessage("Date is required.")
 ];
 
-module.exports = { addFoodItem, getFoodLog };
+const deleteFoodLog = [
+  check("foodLogId")
+    .notEmpty().withMessage("Food log id is required.")
+];
+
+const addFoodLog = [
+  check("foodName")
+  .trim()
+  .notEmpty().withMessage("Food name is required."),
+  check("date")
+  .notEmpty().withMessage("Date is required."),
+  check("amount")
+  .notEmpty().withMessage("Food amount is required.")
+  .isNumeric().withMessage("Food amount must be numeric.")
+  .custom(isNonNegative).withMessage('Amount must be non-negative')
+]
+
+module.exports = { addFoodItem, getFoodLog, deleteFoodLog, addFoodLog };
